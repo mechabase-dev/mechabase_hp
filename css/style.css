@@ -1,0 +1,413 @@
+/*
+ * 1. 基本設定（リセットと共通スタイル）
+ * --------------------------------------------------
+ */
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #673AB7; /* メインカラー: プロフェッショナルな紫 (Deep Purple) */
+    --color-secondary: #512DA8; /* ホバー色 (Darker Purple) */
+    --color-dark: #2C2440; /* ベース/背景色 (Very Dark Purple Gray) */
+    --color-light: #f3e5f5; /* 明るい背景色 (Light Purple Background) */
+    --color-white: #ffffff;
+    --spacing-section: 80px;
+    --spacing-container: 1100px;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--color-dark);
+    background-color: var(--color-white);
+    scroll-behavior: smooth;
+}
+
+/* 共通コンテナ */
+.container {
+    max-width: var(--spacing-container);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 共通セクション */
+.section-padding {
+    padding: var(--spacing-section) 0;
+}
+
+.bg-light {
+    background-color: var(--color-light);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--color-primary); /* パープル */
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--color-primary); /* パープル */
+    margin: 15px auto 0;
+}
+
+/* プライマリボタン */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--color-primary); /* パープル */
+    color: var(--color-white);
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 4px;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secondary); /* 濃いパープル */
+    transform: translateY(-2px);
+}
+
+a {
+    color: var(--color-primary); /* パープル */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/*
+ * 2. ヘッダー (Header)
+ * --------------------------------------------------
+ */
+#header {
+    background-color: var(--color-dark); /* ダークパープルグレー */
+    color: var(--color-white);
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+#header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.logo-icon {
+    height: 6rem; /* テキストサイズに合わせる */
+    width: auto;
+    margin-right: 0.625rem; /* 10px相当 */
+    vertical-align: middle;
+}
+
+.logo-text {
+    /* 念のため、画像が読み込めない場合のテキストスタイル */
+    color: var(--color-white);
+}
+
+#header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+#header nav ul li {
+    margin-left: 30px;
+}
+
+#header nav ul li a {
+    color: var(--color-white);
+    font-weight: 500;
+    transition: color 0.3s;
+    text-decoration: none;
+    padding: 5px 0;
+    position: relative;
+}
+
+#header nav ul li a:hover {
+    color: #E1BEE7; /* 明るいパープル */
+    text-decoration: none;
+}
+
+/*
+ * 3. ヒーローセクション (Hero)
+ * --------------------------------------------------
+ */
+#hero {
+    /* 仮の背景画像。実際の使用時は適切な画像を設定してください */
+    background: url('../images/hero-bg.jpg') no-repeat center center/cover; 
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 100vh; /* ビューポートの高さいっぱい */
+    position: relative;
+    padding-top: 60px; /* ヘッダーの高さ分調整 */
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(44, 36, 64, 0.7); /* ダークパープルグレーの半透明 */
+    z-index: 1;
+}
+
+#hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+#hero h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+#hero p {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+}
+
+/*
+ * 4. コンセプトセクション (Concept)
+ * --------------------------------------------------
+ */
+#concept h3 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--color-primary); /* パープル */
+    margin-bottom: 30px;
+}
+
+.concept-text {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+
+/*
+ * 5. サービスセクション (Service)
+ * --------------------------------------------------
+ */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.service-item {
+    background-color: var(--color-white);
+    padding: 40px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.service-item h4 {
+    font-size: 1.35rem;
+    color: var(--color-dark);
+    margin-bottom: 15px;
+}
+
+.service-item p {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* アイコン（CSSで仮のアイコンを表現する場合） */
+.service-item i {
+    font-size: 3rem;
+    color: var(--color-primary); /* パープル */
+    margin-bottom: 20px;
+    display: inline-block;
+}
+/* 仮のアイコン表現のためのスタイル */
+.icon-code::before { content: '⚙️'; }
+.icon-strategy::before { content: '💡'; }
+.icon-cloud::before { content: '☁️'; }
+
+
+/*
+ * 6. お問い合わせセクション (Contact)
+ * --------------------------------------------------
+ */
+.contact-lead {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+.contact-form-area {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contact-form {
+    background-color: var(--color-light);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--color-dark);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--color-primary); /* パープル */
+    box-shadow: 0 0 0 0.2rem rgba(103, 58, 183, 0.25); /* パープルの薄い影 */
+    outline: none;
+}
+
+.required {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+.submit-area {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/*
+ * 7. フッター (Footer)
+ * --------------------------------------------------
+ */
+#footer {
+    background-color: var(--color-dark); /* ダークパープルグレー */
+    color: #E1BEE7;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/*
+ * 8. レスポンシブデザイン (Media Queries)
+ * --------------------------------------------------
+ */
+@media (max-width: 992px) {
+    :root {
+        --spacing-section: 60px;
+    }
+    
+    #hero h2 {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .service-grid {
+        grid-template-columns: 1fr; /* 小さい画面では縦積み */
+    }
+}
+
+@media (max-width: 768px) {
+    #header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    #header nav ul {
+        margin-top: 10px;
+    }
+    
+    #header nav ul li {
+        margin: 0 10px;
+    }
+    
+    #hero h2 {
+        font-size: 2rem;
+    }
+    
+    #hero p {
+        font-size: 1.2rem;
+    }
+
+    .service-item {
+        padding: 30px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    #hero {
+        height: auto;
+        padding-top: 100px;
+        padding-bottom: 60px;
+    }
+    
+    #hero h2 {
+        font-size: 1.5rem;
+    }
+    
+    .logo-icon {
+        height: 1.5rem; /* テキストサイズに合わせる */
+    }
+    
+    .btn-primary {
+        padding: 12px 20px;
+    }
+}
