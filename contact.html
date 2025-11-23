@@ -92,6 +92,10 @@
     </footer>
     
     <script>
+        // 送信完了後のリダイレクト先を設定（完全なURLを指定）
+        const nextUrl = window.location.origin + window.location.pathname + '?success=1';
+        document.getElementById('nextUrl').value = nextUrl;
+        
         // 送信成功メッセージの表示
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('success') === '1') {
@@ -108,11 +112,10 @@
         let lastSubmitTime = 0;
         const form = document.getElementById('contactForm');
         
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
+        form.addEventListener('submit', function(e) {
             const now = Date.now();
             if (now - lastSubmitTime < 30000) { // 30秒以内
+                e.preventDefault();
                 alert('送信が早すぎます。しばらく待ってから再度お試しください。');
                 return false;
             }
@@ -120,38 +123,13 @@
             // Honeypotフィールドのチェック
             const honeyField = document.querySelector('input[name="_honey"]');
             if (honeyField && honeyField.value !== '') {
+                e.preventDefault();
                 // スパムと判断（何も表示しない）
                 return false;
             }
             
-            // 送信ボタンを無効化
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.textContent;
-            submitButton.disabled = true;
-            submitButton.textContent = '送信中...';
-            
-            try {
-                // FormDataを作成
-                const formData = new FormData(form);
-                
-                // FormSubmitに送信
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    // 成功したらカスタムページにリダイレクト
-                    lastSubmitTime = now;
-                    window.location.href = window.location.pathname + '?success=1';
-                } else {
-                    throw new Error('送信に失敗しました');
-                }
-            } catch (error) {
-                alert('送信に失敗しました。しばらく経ってから再度お試しください。');
-                submitButton.disabled = false;
-                submitButton.textContent = originalButtonText;
-            }
+            lastSubmitTime = now;
+            // 通常のフォーム送信を許可（FormSubmitに直接送信）
         });
     </script>
 </body>
