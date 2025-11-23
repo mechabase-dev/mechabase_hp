@@ -40,7 +40,15 @@
                 <h1 class="section-title">お問い合わせ</h1>
                 <p class="contact-lead">お客様のビジネスの『エンジンルーム』としての貢献に向けて、まずはお気軽にご相談ください。</p>
                         
-                <form action="#" method="POST" class="contact-form">
+                <form action="https://formsubmit.co/yasumori@mechabase.jp" method="POST" class="contact-form" id="contactForm">
+                    <input type="hidden" name="_subject" value="MECHABASE お問い合わせ">
+                    <input type="hidden" name="_captcha" value="true">
+                    <input type="hidden" name="_next" value="" id="nextUrl">
+                    <input type="hidden" name="_template" value="box">
+                    <input type="hidden" name="_autoresponse" value="お問い合わせありがとうございます。内容を確認次第、ご連絡いたします。">
+                    
+                    <!-- Honeypotフィールド（スパム対策：人間には見えないが、ボットが入力してしまう） -->
+                    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
                     
                     <div class="form-group">
                         <label for="name">お名前 <span class="required">必須</span></label>
@@ -83,6 +91,43 @@
         </div>
     </footer>
     
+    <script>
+        // 送信完了後のリダイレクト先を設定
+        document.getElementById('nextUrl').value = window.location.origin + window.location.pathname + '?success=1';
+        
+        // 送信成功メッセージの表示
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === '1') {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.createElement('div');
+            successMessage.className = 'form-success';
+            successMessage.style.cssText = 'background-color: #d4edda; color: #155724; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #c3e6cb;';
+            successMessage.textContent = 'お問い合わせありがとうございます。内容を確認次第、ご連絡いたします。';
+            form.parentNode.insertBefore(successMessage, form);
+            form.style.display = 'none';
+        }
+        
+        // スパム対策：送信頻度制限（30秒以内の連続送信を防止）
+        let lastSubmitTime = 0;
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', function(e) {
+            const now = Date.now();
+            if (now - lastSubmitTime < 30000) { // 30秒以内
+                e.preventDefault();
+                alert('送信が早すぎます。しばらく待ってから再度お試しください。');
+                return false;
+            }
+            lastSubmitTime = now;
+            
+            // Honeypotフィールドのチェック
+            const honeyField = document.querySelector('input[name="_honey"]');
+            if (honeyField && honeyField.value !== '') {
+                e.preventDefault();
+                // スパムと判断（何も表示しない）
+                return false;
+            }
+        });
+    </script>
 </body>
 </html>
 
